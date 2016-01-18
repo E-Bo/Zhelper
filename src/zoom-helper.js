@@ -110,6 +110,7 @@ var zoomHelper = function(options){
         return;
     };
 
+    this.initState = false;
     this.initZoomer();
 }
 
@@ -151,6 +152,9 @@ zoomHelper.prototype = {
         }
     },
     initZoomer: function(){
+        if(this.initState){
+            return;
+        };
         this.container = $(this.options.container);
         this.element = $(this.options.zoomer);
         this.setInitData();
@@ -170,6 +174,7 @@ zoomHelper.prototype = {
         this.scale = 1;
         this.zoom(this.centerPosition,this.initScale);
         this.element.removeClass('zoom-helper-hidden');
+        this.initState = true;
     },
     initDraggable:function(){
         if(!this.dragContainer){
@@ -201,6 +206,25 @@ zoomHelper.prototype = {
         var initScale = Math.min(this.containerStyles.width/this.elementStyles.outerWidth,this.containerStyles.height/this.elementStyles.outerHeight);
         this.initScale = initScale < 1? initScale : 1;
         this.initScale = this.getFixedScale(this.initScale);
+    },
+    resetZoomer: function(){
+        if(!this.initState){
+            this.initZoomer();
+        }else{
+            this.setInitData();
+            this.zoomerOuter.css({
+                width: this.elementStyles.outerWidth + 'px',
+                height: this.elementStyles.outerHeight + 'px'
+            });
+            if(this.dragContainer){
+                this.dragContainer.css({
+                    padding: this.containerStyles.height +'px '+ this.containerStyles.width +'px',
+                    margin-top: -this.containerStyles.height +'px',
+                    margin-left: -this.containerStyles.width + 'px'
+                });
+            };
+            this.zoomToSuitable();
+        }
     },
     wheelZoom: function(e){
         var direct = 0;
