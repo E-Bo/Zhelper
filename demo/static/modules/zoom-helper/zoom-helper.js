@@ -218,9 +218,9 @@ zoomHelper.prototype = {
             });
             if(this.dragContainer){
                 this.dragContainer.css({
-                    padding: this.containerStyles.height +'px '+ this.containerStyles.width +'px',
-                    margin-top: -this.containerStyles.height +'px',
-                    margin-left: -this.containerStyles.width + 'px'
+                    'padding': this.containerStyles.height +'px '+ this.containerStyles.width +'px',
+                    'margin-top': -this.containerStyles.height +'px',
+                    'margin-left': -this.containerStyles.width + 'px'
                 });
             };
             this.zoomToSuitable();
