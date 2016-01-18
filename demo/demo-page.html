@@ -1,0 +1,39 @@
+<html style="font-size: 20px;">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="static/modules/normalize/normalize.css">
+        <link rel="stylesheet" type="text/css" href="static/modules/zoom-helper/zoom-helper.css">
+        <link rel="stylesheet" type="text/css" href="static/modules/ezicon/ezicon.css">
+        <link rel="stylesheet" type="text/css" href="static/app/demo.css">
+    </head>
+    <body>
+        <div class="demo-title">
+            <span>Zoom-helper 示例页面(标题字号20px)</span>
+        </div>
+        <div class="zoom-container">
+            <div id="zoomer" class='zoom-helper-hidden'>
+                <span>蓝色区域就是需要被zoom的元素</span><br>
+                <span>这里的文本字号同样是20px</span><br>
+                <span>灰色部分是zoom-helper的容器</span><br><br>
+                <span>当前的容器设置有20px的内边距</span><br>
+                <span>所以，适屏缩放时会有一个边距</span><br><br>
+                <span>由于每个项目的需求都不一样</span><br>
+                <span>所以目前只包含滚轮zoom和鼠标拖拽</span><br>
+                <span>右边的工具按钮没有整合到helper中</span><br>
+                <span>计划将这些按钮整合到一个扩展中</span><br>
+                <span>每个项目也可以编写自己的操作控件</span>
+            </div>
+            <div class="zoomer-helper-tools-container">
+                <a class="tools-btn js-tools-btn" data-action-type="zoomToMax" title="最大化"><i class="icon-enlarge"></i></a>
+                <a class="tools-btn js-tools-btn" data-action-type="zoomIn" title="放大"><i class="icon-plus"></i></a>
+                <a class="tools-btn js-tools-btn" data-action-type="zoomOut" title="缩小"><i class="icon-minus"></i></a>
+                <a class="tools-btn js-tools-btn" data-action-type="zoomToSuitable" title="适屏"><i class="icon-shrink"></i></a>
+            </div>
+        </div>
+        <script type="text/javascript" src="static/modules/jquery/jquery.js"></script>
+        <script type="text/javascript" src="static/modules/jquery/jquery-ui.customer.min.js"></script>
+        <script type="text/javascript" src="static/modules/zoom-helper/addWheelListener.js"></script>
+        <script type="text/javascript" src="static/modules/zoom-helper/zoom-helper.js"></script>
+        <script type="text/javascript" src="static/app/page.js"></script>
+    </body>
+</html>
