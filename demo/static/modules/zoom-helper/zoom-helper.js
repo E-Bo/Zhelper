@@ -178,7 +178,7 @@ zoomHelper.prototype = {
     },
     initDraggable:function(){
         if(!this.dragContainer){
-            this.zoomerOuter.wrap('<div class="drag-container" style="padding:'+ this.containerStyles.height +'px '+ this.containerStyles.width +'px; margin-top:'+ -this.containerStyles.height +'px; margin-left:'+ -this.containerStyles.width +'px;"></div>');
+            this.zoomerOuter.wrap('<div class="drag-container" style="padding:'+ this.dragStyles.paddingTop +'px '+ this.dragStyles.paddingLeft +'px; margin-top:'+ -this.dragStyles.paddingTop +'px; margin-left:'+ -this.dragStyles.paddingLeft +'px;"></div>');
             this.dragContainer = this.zoomerOuter.parent('.drag-container');
         }
         this.dragContainer.draggable({
@@ -202,6 +202,10 @@ zoomHelper.prototype = {
             outerWidth: this.element.outerWidth(true),
             outerHeight: this.element.outerHeight(true)
         };
+        this.dragStyles = {
+            paddingLeft: (this.containerStyles.width + this.elementStyles.outerWidth * this.options.zoomMax)/2,
+            paddingTop: (this.containerStyles.height + this.elementStyles.outerHeight * this.options.zoomMax)/2
+        };
         this.centerPosition = this.getCenterPosition();
         var initScale = Math.min(this.containerStyles.width/this.elementStyles.outerWidth,this.containerStyles.height/this.elementStyles.outerHeight);
         this.initScale = initScale < 1? initScale : 1;
@@ -218,9 +222,9 @@ zoomHelper.prototype = {
             });
             if(this.dragContainer){
                 this.dragContainer.css({
-                    'padding': this.containerStyles.height +'px '+ this.containerStyles.width +'px',
-                    'margin-top': -this.containerStyles.height +'px',
-                    'margin-left': -this.containerStyles.width + 'px'
+                    'padding': this.dragStyles.paddingTop +'px '+ this.dragStyles.paddingLeft +'px',
+                    'margin-top': -this.dragStyles.paddingTop +'px',
+                    'margin-left': -this.dragStyles.paddingLeft + 'px'
                 });
             };
             this.zoomToSuitable();
