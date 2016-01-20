@@ -31,7 +31,7 @@
 		<span>如果以上变化都是使用CSS动画进行的，你需要等变化结束后再执行上述方法。我的处理方式时 setTimeout 或者 绑定动画结束的callback事件,例如:</span><br>
 		<pre>
 		<code>
-			$('.your-container-selector').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', yourZoomer.setInitData);
+			$('.your-container-selector').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend webkitTransitionEnd oTransitionEnd otransitionend webkitTransitionEnd transitionend', yourZoomer.setInitData);
 		</code>
 		</pre>
 	</li>
