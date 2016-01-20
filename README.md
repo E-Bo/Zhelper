@@ -5,7 +5,7 @@
 
 <h1>用法</h1>
 <pre>
-<code>
+```js
 	var myZoomer = new zoomHelper({
 		container: '.zoom-container-selector',
 		zoomer: '#zoomer_selector',
@@ -15,8 +15,8 @@
 		zoomMax: 2,
 		zoomMin: 0.1,
 		zoomStep: 0.2
-	});
-</code>
+	});	
+```
 </pre>
 <h1>需要注意的一些问题</h1>
 <ul>
