@@ -21,6 +21,7 @@
 <script type="text/javascript" src="your-project/modules/jquery/jquery-ui.customer.min.js"></script>
 <script type="text/javascript" src="your-project/modules/zoom-helper/addWheelListener.js"></script>
 <script type="text/javascript" src="your-project/modules/zoom-helper/zoom-helper.js"></script>
+...
 </body>
 ```
 ```js
