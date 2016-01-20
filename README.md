@@ -25,8 +25,8 @@
 ```
 ```js
 var myZoomer = new zoomHelper({
-	container: '.zoom-container-selector',
-	zoomer: '#zoomer_selector',
+	container: '.zoom-container',
+	zoomer: '#zoomer',
 	afterZoom: function(data){
 	    //do something you need;
 	},
