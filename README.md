@@ -1,4 +1,4 @@
-# zoom-helper
+# Zhelper
 <span>在web端产品中，如果你希望展现一些类似拓扑图的元素，可能会希望能够缩放，基于这个需求，便有个zoomer-helper。</span><br>
 <span>目前她的功能还很简陋，只支持鼠标滚轮缩放和拖动。例子中的工具条是外置的，考虑到这类工具条应该是定制化的，所以并没有整合到zoomer-helper中。</span><br>
 <span>最后，希望这个小控件能够帮助到你~ </span>
