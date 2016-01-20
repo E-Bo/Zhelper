@@ -64,9 +64,9 @@ var myZoomer = new zoomHelper({
     afterZoom: function(data){
         checkBtnState(data.state);
     },
+    zoomStep: 0.2,
     zoomMax: 2,
-    zoomMin: 0.1,
-    zoomStep: 0.2
+    zoomMin: 0.1
 });
 
 for(var btn in toolsBtns){

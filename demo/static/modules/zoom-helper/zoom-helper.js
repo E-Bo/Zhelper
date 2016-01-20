@@ -97,7 +97,7 @@ var zoomHelper = function(options){
         useDrag: true,
         zoomStep: 0.1,
         zoomMax: 2,
-        zoomMin: 0.1
+        zoomMin: 'auto'
     };
     this.options = $.extend({},this.defOptions);
 
@@ -209,6 +209,9 @@ zoomHelper.prototype = {
         this.centerPosition = this.getCenterPosition();
         var initScale = Math.min(this.containerStyles.width/this.elementStyles.outerWidth,this.containerStyles.height/this.elementStyles.outerHeight);
         this.initScale = initScale < 1? initScale : 1;
+        if(this.options.zoomMin == this.defOptions.zoomMin){
+            this.options.zoomMin = this.fixNumber(this.initScale);
+        }
         this.initScale = this.getFixedScale(this.initScale);
     },
     resetZoomer: function(){
@@ -266,8 +269,11 @@ zoomHelper.prototype = {
         }else if(scale > this.options.zoomMax){
             scale = this.options.zoomMax;
         }
-        scale = scale.toFixed(6) - 0;
+        scale = this.fixNumber(scale);
         return scale;
+    },
+    fixNumber: function(num){
+        return num.toFixed(6) - 0;
     },
     getZoomerPosition: function(){
         return this.zoomerInner.offset();
