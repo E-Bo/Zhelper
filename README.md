@@ -4,6 +4,25 @@
 <span>最后，希望这个小控件能够帮助到你~ </span>
 
 <h1>用法</h1>
+为了避免画面中元素的突然位移和缩放，建议给目标元素添加class:zoom-helper-hidden , 该样式内置在 zoom-helper.css 中。
+```html
+<head>
+...
+<link rel="stylesheet" type="text/css" href="your-project/modules/zoom-helper/zoom-helper.css">
+...
+</head>
+<body>
+...
+<div class="zoom-container">
+	<div id="zoomer" class="zoom-helper-hidden"></div>
+</div>
+...
+<script type="text/javascript" src="your-project/modules/jquery/jquery.js"></script>
+<script type="text/javascript" src="your-project/modules/jquery/jquery-ui.customer.min.js"></script>
+<script type="text/javascript" src="your-project/modules/zoom-helper/addWheelListener.js"></script>
+<script type="text/javascript" src="your-project/modules/zoom-helper/zoom-helper.js"></script>
+</body>
+```
 ```js
 var myZoomer = new zoomHelper({
 	container: '.zoom-container-selector',
