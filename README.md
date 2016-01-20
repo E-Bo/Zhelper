@@ -29,14 +29,14 @@
 	</li>
 	<li>
 		<span>如果以上变化都是使用CSS动画进行的，你需要等变化结束后再执行上述方法。我的处理方式时 setTimeout 或者 绑定动画结束的callback事件,例如:</span><br>
-		<pre>
-		<code>
-			// .will-change-selector 是导致你容器变化的那个带有过度或者动画的元素，并不一定是容器本身，我想道理大家都清楚.
-			$('.will-change-selector').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend webkitTransitionEnd oTransitionEnd otransitionend webkitTransitionEnd transitionend', function(){
-				yourZoomer.setInitData();
-			});
-		</code>
-		</pre>
+	<pre>
+	<code>
+		// .will-change-selector 是导致你容器变化的那个带有过度或者动画的元素，并不一定是容器本身，我想道理大家都清楚.
+		$('.will-change-selector').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend webkitTransitionEnd oTransitionEnd otransitionend webkitTransitionEnd transitionend', function(){
+			yourZoomer.setInitData();
+		});
+	</code>
+	</pre>
 	</li>
 </ul>
 
