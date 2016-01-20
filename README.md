@@ -27,6 +27,9 @@
 	<li>
 		<span>当被缩放的元素大小也发生变化（不是指zoom，而是原始大小）时，需要调用 resetZoomer 方法来重置。</span>
 	</li>
+	<li>
+		<span>如果以上变化都是使用CSS动画进行的，你需要等变化结束后再执行上述方法。我的处理方式时 setTimeout 或者 绑定动画结束的callback事件,例如: $('.container-selector').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', yourZoomer.setInitData) 。</span>
+	</li>
 </ul>
 
 <h2>其他</h2>
