@@ -17,10 +17,10 @@ var myZoomer = new zoomHelper({
 });	
 ```
 <h1>需要注意的一些问题</h1>
-- 当容器的大小和位置变化后，你可能需要调用 setInitData 方法来告诉zoomer重新计算她缓存的一些数据（宽度，位置之类的数据）。
-zoomer在进行缩放时，尽量只动态获取那些必须的位置和宽高数据，而在初始化时保存那些基本保持不变的数据，所以如果你的容器发生了改变就需要告诉zoomer重新计算。
-- 当被缩放的元素大小也发生变化（不是指zoom，而是原始大小）时，需要调用 resetZoomer 方法来重置。
-- 如果以上变化都是使用CSS动画进行的，你需要等变化结束后再执行上述方法。我的处理方式时 setTimeout 或者 绑定动画结束的callback事件,例如:<br>
+- 当容器的大小和位置变化后，你可能需要调用 `setInitData()` 方法来告诉 zoom-helper 重新计算她缓存的一些数据（宽度，位置之类的数据）。
+zoom-helper 在进行缩放时，尽量只动态获取那些必须的位置和宽高数据，而在初始化时保存那些基本保持不变的数据，所以如果你的容器发生了改变就需要告诉 zoom-helper 重新计算。
+- 当被缩放的元素大小也发生变化（不是指zoom，而是原始大小）时，需要调用 `resetZoomer()` 方法来重置。
+- 如果以上变化都是使用CSS动画进行的，你需要等变化结束后再执行上述方法。我的处理方式时 `setTimeout()` 或者 绑定动画结束的callback事件,例如:<br>
 ```js
 	// .will-change-selector 是导致你容器变化的那个带有过度或者动画的元素，并不一定是容器本身，原理大家都清楚.
 	$('.will-change-selector').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend webkitTransitionEnd oTransitionEnd otransitionend webkitTransitionEnd transitionend', function(){
