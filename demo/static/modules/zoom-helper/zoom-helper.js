@@ -363,6 +363,9 @@ zoomHelper.prototype = {
     },
     setStyle: function(newScale,dPosition){
         this.zoomerInner.css(this.getCssCode(newScale,dPosition));
+        this.afterZoom();
+    },
+    afterZoom: function(){
         if(this.options.afterZoom){
             this.options.afterZoom(this.getState());
         };
@@ -456,5 +459,14 @@ zoomHelper.prototype = {
             width: styles.outer.width,
             height: styles.outer.height
         });
+    },
+    checkTransition: function(target){
+        var duration = target.css('transition-duration') || target.css('-webkit-transition-duration') || target.css('-moz-transition-duration');
+        var delay = target.css('transition-delay') || target.css('-webkit-transition-delay') || target.css('-moz-transition-delay');
+        if(duration == '0s' && delay == '0s'){
+            return false;
+        }else{
+            return true;
+        }
     }
 }
