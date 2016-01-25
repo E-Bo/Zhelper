@@ -15,6 +15,7 @@
 ...
 <div class="zoom-container">
 	<div id="zoomer" class="zoom-helper-hidden"></div>
+	<div id="zoomerMinMap"></div>
 </div>
 ...
 <script type="text/javascript" src="your-project/modules/jquery/jquery.js"></script>
@@ -28,6 +29,7 @@
 var myZoomer = new zoomHelper({
 	container: '.zoom-container',
 	zoomer: '#zoomer',
+	minMap: '#zoomerMinMap',
 	afterZoom: function(data){
 	    //do something you need;
 	},
@@ -49,4 +51,4 @@ zoom-helper 在进行缩放时，尽量只动态获取那些必须的位置和�
 ```
 
 <h2>其他</h2>
-<span>有时间了会加入 minMap 功能。</span>
+<span>minMap功能还很简陋，目前只实现了单向浏览，反向控制有时间了再加。</span>
