@@ -75,3 +75,10 @@ body{
 	color: #fff;
 	padding: 0 0.5em;
 }
+
+#zoomerMinMap{
+	width: 80px;
+	height: 112px;
+	background-color: #09e;
+	padding: 4px 0;
+}

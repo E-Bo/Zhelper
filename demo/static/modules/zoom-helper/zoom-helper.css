@@ -32,3 +32,37 @@
 	left: 50%;
 	top: 50%;
 }
+
+.min-map-contianer{
+	position: absolute;
+	width: 14%;
+	height: 14%;
+	top: 20px;
+	right: 20px;
+	overflow: hidden;
+}
+.min-map{
+	position: absolute;
+	-webkit-transform-origin: 0% 0%;
+	-moz-transform-origin: 0% 0%;
+	-ms-transform-origin: 0% 0%;
+	transform-origin: 0% 0%;
+	box-shadow:inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.min-map-outer{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+.min-map-view{
+	position: absolute;
+	-webkit-transform-origin: 0% 0%;
+	-moz-transform-origin: 0% 0%;
+	-ms-transform-origin: 0% 0%;
+	transform-origin: 0% 0%;
+	background-color: rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}

@@ -61,6 +61,7 @@ $(".js-tools-btn").each(function(){
 var myZoomer = new zoomHelper({
     container: '.zoom-container',
     zoomer: '#zoomer',
+    minMap: '#zoomerMinMap',
     afterZoom: function(data){
         checkBtnState(data.state);
     },

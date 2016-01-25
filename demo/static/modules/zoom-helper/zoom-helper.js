@@ -97,7 +97,8 @@ var zoomHelper = function(options){
         useDrag: true,
         zoomStep: 0.1,
         zoomMax: 2,
-        zoomMin: 'auto'
+        zoomMin: 'auto',
+        minMap: null
     };
     this.options = $.extend({},this.defOptions);
 
@@ -122,7 +123,8 @@ zoomHelper.prototype = {
         afterZoom: setter.setFunction,
         zoomStep: setter.setNumber,
         zoomMax: setter.setNumber,
-        zoomMin: setter.setNumber
+        zoomMin: setter.setNumber,
+        minMap: setter.setDom
     },
     clients: {
         'default' : {
@@ -186,17 +188,46 @@ zoomHelper.prototype = {
     		start:function(){
                 $(event.target).addClass("closehand");
     		},
+            drag:$.proxy(function(){
+                this.setMinMap();
+            },this),
     		stop:function(){
                 $(event.target).removeClass("closehand");
     		}
     	});
+    },
+    initMinMap: function(){
+        if(!this.minMap){
+            var minMapTmp = $(this.options.minMap);
+            this.minMap = minMapTmp.clone(true).addClass("min-map");
+            minMapTmp.remove();
+            this.container.append(this.minMap);
+            this.minMapView = $('<div class="min-map-view"></div>');
+            this.minMap.wrap('<div class="min-map-contianer"></div>');
+            this.minMapContianer = this.minMap.parent('.min-map-contianer');
+            this.minMap.wrap('<div class="min-map-outer"></div>');
+            this.minMapOuter = this.minMap.parent('.min-map-outer');
+            this.minMap.after(this.minMapView);
+        }
+        this.minMapStyles = {
+            containerWidth: this.minMapContianer.width(),
+            containerHeight: this.minMapContianer.height(),
+            width: this.minMap.width(),
+            height: this.minMap.height()
+        };
+        this.minMapView.css({
+            width: this.minMapStyles.containerWidth + "px",
+            height: this.minMapStyles.containerHeight + "px"
+        });
     },
     setInitData: function(){
         this.containerStyles = {
             width: this.container.width(),
             height: this.container.height(),
             outerWidth: this.container.outerWidth(false),
-            outerHeight: this.container.outerHeight(false)
+            outerHeight: this.container.outerHeight(false),
+            top: this.container.offset().top,
+            left: this.container.offset().left
         };
         this.elementStyles = {
             outerWidth: this.element.outerWidth(true),
@@ -205,6 +236,9 @@ zoomHelper.prototype = {
         this.dragStyles = {
             paddingLeft: (this.containerStyles.width + this.elementStyles.outerWidth * this.options.zoomMax)/2,
             paddingTop: (this.containerStyles.height + this.elementStyles.outerHeight * this.options.zoomMax)/2
+        };
+        if(this.options.minMap){
+            this.initMinMap();
         };
         this.centerPosition = this.getCenterPosition();
         var initScale = Math.min(this.containerStyles.width/this.elementStyles.outerWidth,this.containerStyles.height/this.elementStyles.outerHeight);
@@ -280,8 +314,8 @@ zoomHelper.prototype = {
     },
     getCenterPosition: function(){
         return {
-            top: this.container.offset().top + this.containerStyles.outerHeight/2,
-            left: this.container.offset().left + this.containerStyles.outerWidth/2
+            top: this.containerStyles.top + this.containerStyles.outerHeight/2,
+            left: this.containerStyles.left + this.containerStyles.outerWidth/2
         };
     },
     zoom: function(originPoint,newScale){
@@ -315,13 +349,13 @@ zoomHelper.prototype = {
         this.scale = this.initScale;
         this.dPosition.left = 0;
         this.dPosition.top = 0;
-        this.setStyle(this.scale, this.dPosition);
         if(this.dragContainer){
             this.dragContainer.css({
                 left: 0,
                 top: 0
             });
         }
+        this.setStyle(this.scale, this.dPosition);
         return this.scale;
     },
     zoomToScale: function(newScale){
@@ -331,6 +365,9 @@ zoomHelper.prototype = {
         this.zoomerInner.css(this.getCssCode(newScale,dPosition));
         if(this.options.afterZoom){
             this.options.afterZoom(this.getState());
+        };
+        if(this.minMap){
+            this.setMinMap();
         }
     },
     getState: function(){
@@ -368,5 +405,56 @@ zoomHelper.prototype = {
         if(console && console.info){
             console.info(msg);
         }
+    },
+    getMinMapStyles: function(targetStyles,containerStyles){
+        var left = Math.min(targetStyles.left, containerStyles.left);
+        var right = Math.max(targetStyles.left + targetStyles.width, containerStyles.left + containerStyles.outerWidth);
+        var top = Math.min(targetStyles.top, containerStyles.top);
+        var bottom = Math.max(targetStyles.top + targetStyles.height, containerStyles.top + containerStyles.outerHeight);
+        var minMapStyles = {
+            zoomerLeft: targetStyles.left - left,
+            zoomerTop: targetStyles.top - top,
+            containerWidth: right - left,
+            containerHeight: bottom - top,
+            viewLeft: containerStyles.left - left,
+            viewTop: containerStyles.top - top
+        };
+        var scale = Math.min(this.minMapStyles.containerHeight / minMapStyles.containerHeight, this.minMapStyles.containerWidth / minMapStyles.containerWidth);
+        var minMapOuterHeight = minMapStyles.containerHeight * scale / this.minMapStyles.containerHeight * 100 + "%";
+        var minMapOuterWidth = minMapStyles.containerWidth * scale / this.minMapStyles.containerWidth * 100 + "%";
+        var minMapScale = targetStyles.width * scale / this.minMapStyles.width;
+        var viewScale = containerStyles.outerWidth * scale / this.minMapStyles.containerWidth;
+        return {
+            minMap: {
+                position: {
+                    top: minMapStyles.zoomerTop * scale,
+                    left: minMapStyles.zoomerLeft * scale
+                },
+                scale: minMapScale
+            },
+            view: {
+                position: {
+                    top: minMapStyles.viewTop * scale,
+                    left: minMapStyles.viewLeft * scale
+                },
+                scale: viewScale
+            },
+            outer: {
+                width: minMapOuterWidth,
+                height: minMapOuterHeight
+            }
+        }
+    },
+    setMinMap: function(){
+        var styles =  this.getMinMapStyles($.extend({
+            width: this.elementStyles.outerWidth * this.scale,
+            height: this.elementStyles.outerHeight * this.scale
+        },this.getZoomerPosition()),this.containerStyles);
+        this.minMap.css(this.getCssCode(styles.minMap.scale, styles.minMap.position));
+        this.minMapView.css(this.getCssCode(styles.view.scale, styles.view.position));
+        this.minMapOuter.css({
+            width: styles.outer.width,
+            height: styles.outer.height
+        });
     }
 }
