@@ -8,11 +8,13 @@ function checkBtnState(state){
 };
 
 function updateBtnState(btn,state){
-    if(state){
+	if(btn){
+		if(state){
         btn.removeAttr('disabled');
     }else{
         btn.attr('disabled','disabled');
     }
+	}
 };
 
 var btnsFunctionMap = {

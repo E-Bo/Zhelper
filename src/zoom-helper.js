@@ -185,14 +185,20 @@ zoomHelper.prototype = {
         }
         this.dragContainer.draggable({
     		scroll: false,
-    		start:function(){
-                $(event.target).addClass("closehand");
+    		start:function(event){
+                try {
+                    $(event.target).addClass("closehand");
+                } catch (error) {
+                }
     		},
             drag:$.proxy(function(){
                 this.setMinMap();
             },this),
-    		stop:function(){
-                $(event.target).removeClass("closehand");
+    		stop:function(event){
+                try {
+                    $(event.target).removeClass("closehand");
+                } catch (error) {
+                }
     		}
     	});
     },
